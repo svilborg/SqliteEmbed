@@ -1,0 +1,27 @@
+/.apt_generated
+# generated files
+bin/
+gen/
+bin/**
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Local configuration file (sdk path, etc)
+local.properties
+/.settings
+
+# Eclipse project files
+.classpath
+.project
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+/out
