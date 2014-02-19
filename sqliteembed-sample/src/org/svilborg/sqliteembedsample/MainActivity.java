@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.svilborg.sqliteembed.database.SQLiteEmbedException;
 import org.svilborg.sqliteembed.database.SQLiteEmbedImporter;
-import org.svilborg.sqliteembed.database.SQLiteEmbedOpenHelper;
-import org.svilborg.sqliteembed.util.Logger;
-import org.svilborg.sqliteembed.util.Utils;
+import org.svilborg.sqliteembed.database.helpers.SQLiteEmbedOpenHelper;
+import org.svilborg.sqliteembed.utils.Logger;
+import org.svilborg.sqliteembed.utils.Utils;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 		String mySql = " SELECT name FROM sqlite_master " + " WHERE type='table'";
 		Cursor c = db.rawQuery(mySql, null);
 
-		if (c.moveToFirst()) {
+		if (c.moveToFirst()) { 
 			do {
 				Logger.i("MainActivity", "|" + c.getString(0) + "|");
 
@@ -61,6 +61,6 @@ public class MainActivity extends Activity {
 		// ////////////////////////
 		Cursor cursor = db.rawQuery("SELECT * FROM `teams`", null);
 		Logger.i("MainActivity", "Result: " + cursor.getCount());
-		Logger.i("MainActivity", "Result: " + Utils.getVersion(this));
+		Logger.i("MainActivity", "Result: " + Utils.getVersionCode(this));
 	}
 }

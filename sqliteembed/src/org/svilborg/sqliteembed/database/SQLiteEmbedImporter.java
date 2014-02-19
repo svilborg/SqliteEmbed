@@ -5,15 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.svilborg.sqliteembed.util.File;
-import org.svilborg.sqliteembed.util.Logger;
+import org.svilborg.sqliteembed.database.helpers.SQLiteEmbedOpenHelper;
+import org.svilborg.sqliteembed.utils.File;
+import org.svilborg.sqliteembed.utils.Logger;
+import org.svilborg.sqliteembed.utils.SqlParser;
 
 import android.content.Context;
 
 /**
  * Imports a prepared Sqlite db file situated in /assets folder
  * 
- * @author svilborg
+ * 
  */
 public class SQLiteEmbedImporter {
 
@@ -31,6 +33,21 @@ public class SQLiteEmbedImporter {
 	public SQLiteEmbedImporter(Context context, SQLiteEmbedOpenHelper dbHandle) {
 		this.context = context;
 		this.dbHandle = dbHandle;
+
+		// try {
+		// InputStream is = context.getAssets().open("update_0.1.sql");
+		//
+		// SqlParser parser = new SqlParser(is);
+		// String[] sql = parser.getSql();
+		//
+		// for (String string : sql) {
+		// Logger.i("SQL Line", string);
+		// }
+		//
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 	}
 
 	/**
@@ -94,7 +111,7 @@ public class SQLiteEmbedImporter {
 		OutputStream outputStream = new FileOutputStream(dbHandle.getDatabaseFullPath());
 
 		Logger.i(TAG, "Opened output file");
-		
+
 		File.copyFile(inputStream, outputStream);
 
 		Logger.i(TAG, "Copied Database");

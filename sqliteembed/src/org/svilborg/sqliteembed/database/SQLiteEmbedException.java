@@ -3,7 +3,7 @@ package org.svilborg.sqliteembed.database;
 /**
  * SQLiteEmbed Exception
  * 
- * @author svilborg
+ * 
  */
 public class SQLiteEmbedException extends Exception {
 

@@ -1,11 +1,11 @@
-package org.svilborg.sqliteembed.util;
+package org.svilborg.sqliteembed.utils;
 
 import android.util.Log;
 
 /**
  * Custom Android Logger
  * 
- * @author svilborg
+ * 
  */
 public class Logger {
 

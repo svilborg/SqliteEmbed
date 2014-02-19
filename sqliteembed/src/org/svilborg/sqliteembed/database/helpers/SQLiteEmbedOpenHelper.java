@@ -1,11 +1,10 @@
-package org.svilborg.sqliteembed.database;
+package org.svilborg.sqliteembed.database.helpers;
 
 import java.io.File;
 
-import org.svilborg.sqliteembed.util.Logger;
+import org.svilborg.sqliteembed.utils.Logger;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -15,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * SQLite DB Handler
  * 
- * @author svilborg
+ * 
  */
 public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
