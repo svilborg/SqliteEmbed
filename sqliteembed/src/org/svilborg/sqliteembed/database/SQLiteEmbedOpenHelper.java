@@ -21,6 +21,7 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
 	private SQLiteDatabase db;
 	private String dbPath;
+	private String dbName;
 	private static final String TAG = "SQLiteEmbedOpenHelper";
 	private Context currentContext;
 
@@ -28,16 +29,15 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 		super(context, name, factory, version);
 
 		currentContext = context;
-
-		String absPath = context.getDatabasePath(name).getAbsolutePath();
+		dbName = name;
 
 		if (path != null) {
-            dbPath = path;
-        } else {
-            dbPath = context.getApplicationInfo().dataDir + "/databases";
-        }
+			dbPath = path;
+		} else {
+			dbPath = context.getDatabasePath(name).getAbsolutePath();
+		}
 
-		Logger.i(TAG, "Database ABS PATH - " + absPath);
+		Logger.i(TAG, "Database ABS PATH - " + dbPath);
 
 		this.setDatabasePath(dbPath);
 	}
@@ -46,13 +46,20 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 		return dbPath;
 	}
 
+	/**
+	 * For older apis
+	 */
+	public String getDatabaseName() {
+		return dbName;
+	}
+
 	public void setDatabasePath(String dbPath) {
 		this.dbPath = dbPath;
 	}
 
 	public String getDatabaseFullPath() {
-		Logger.i(TAG, "Database FULL PATH - " + this.getDatabasePath() + this.getDatabaseName());
-		return this.getDatabasePath() + this.getDatabaseName();
+		Logger.i(TAG, "Database FULL PATH - " + this.getDatabasePath() + dbName);
+		return this.getDatabasePath() + dbName;
 	}
 
 	/**
@@ -98,14 +105,13 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
 	public boolean existsDatabaseFile() {
 		Logger.i(TAG, "Check if Database File exists");
-		
-		File dbFile = currentContext.getDatabasePath(getDatabaseName());
+
+		File dbFile = currentContext.getDatabasePath(dbName);
 
 		if (dbFile.exists()) {
 			Logger.i(TAG, "Database File does exist");
 			return true;
-		}
-		else { 
+		} else {
 			Logger.i(TAG, "Database File does not exist");
 			return false;
 		}
@@ -130,8 +136,7 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO: Write routines to remove and overwrite the database on an
-		// upgrade
+
 	}
 
 	/**
@@ -144,5 +149,4 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
 		super.onOpen(db);
 	}
-	
 }

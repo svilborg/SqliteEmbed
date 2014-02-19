@@ -6,12 +6,14 @@ import org.svilborg.sqliteembed.database.SQLiteEmbedException;
 import org.svilborg.sqliteembed.database.SQLiteEmbedImporter;
 import org.svilborg.sqliteembed.database.SQLiteEmbedOpenHelper;
 import org.svilborg.sqliteembed.util.Logger;
+import org.svilborg.sqliteembed.util.Utils;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	public static final String DATABASE_PATH = "/data/data/org.svilborg.sqliteembedsample/databases/";
@@ -22,12 +24,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
 
 		try {
 			testCreateDatabase();
@@ -36,8 +32,6 @@ public class MainActivity extends Activity {
 		} catch (SQLiteEmbedException e) {
 			e.printStackTrace();
 		}
-
-		return true;
 	}
 
 	private void testCreateDatabase() throws IOException, SQLiteEmbedException {
@@ -67,5 +61,6 @@ public class MainActivity extends Activity {
 		// ////////////////////////
 		Cursor cursor = db.rawQuery("SELECT * FROM `teams`", null);
 		Logger.i("MainActivity", "Result: " + cursor.getCount());
+		Logger.i("MainActivity", "Result: " + Utils.getVersion(this));
 	}
 }

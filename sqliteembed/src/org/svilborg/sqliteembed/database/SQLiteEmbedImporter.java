@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.svilborg.sqliteembed.util.File;
 import org.svilborg.sqliteembed.util.Logger;
 
 import android.content.Context;
@@ -86,7 +87,6 @@ public class SQLiteEmbedImporter {
 	private void copyDatabase() throws IOException {
 
 		Logger.i(TAG, "Copy Database");
-
 		Logger.i(TAG, "Open assets file " + dbHandle.getDatabaseName());
 		Logger.i(TAG, "Open output file " + dbHandle.getDatabaseFullPath());
 
@@ -94,24 +94,8 @@ public class SQLiteEmbedImporter {
 		OutputStream outputStream = new FileOutputStream(dbHandle.getDatabaseFullPath());
 
 		Logger.i(TAG, "Opened output file");
-
-		byte[] buffer = new byte[1024];
-		int length;
-		while ((length = inputStream.read(buffer)) > 0) {
-			outputStream.write(buffer, 0, length);
-		}
-
-		outputStream.flush();
-		outputStream.close();
-		inputStream.close();
-
-		boolean existsFile = dbHandle.existsDatabaseFile();
-
-		if (existsFile) {
-			Logger.i(TAG, "Post-Import Database - Database File Exists");
-		} else {
-			Logger.i(TAG, "Post-Import Database - Database File Does NOT Exist");
-		}
+		
+		File.copyFile(inputStream, outputStream);
 
 		Logger.i(TAG, "Copied Database");
 	}
