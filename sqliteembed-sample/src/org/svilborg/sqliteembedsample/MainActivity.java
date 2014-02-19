@@ -12,10 +12,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.view.Menu;
-import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity { 
 	public static final String DATABASE_PATH = "/data/data/org.svilborg.sqliteembedsample/databases/";
 	public static final String DATABASE_NAME = "teams.db";
 	public static final int DATABASE_VERSION = 1;

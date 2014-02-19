@@ -1,8 +1,11 @@
 package org.svilborg.sqliteembed.database.helpers;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.svilborg.sqliteembed.utils.Logger;
+import org.svilborg.sqliteembed.utils.SqlParser;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -59,6 +62,45 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 	public String getDatabaseFullPath() {
 		Logger.i(TAG, "Database FULL PATH - " + this.getDatabasePath() + dbName);
 		return this.getDatabasePath() + dbName;
+	}
+
+	public void parseSqlFile(String file) {
+
+		try {
+			InputStream is = currentContext.getAssets().open(file);
+
+			SqlParser parser = new SqlParser(is);
+			String[] sql = parser.getSql();
+
+			for (String string : sql) {
+				Logger.i("SQL Line", string);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void execSqlFile(SQLiteDatabase db, String file) {
+		// SQLiteDatabase db = this.getReadableDatabase();
+
+		try {
+			InputStream is = currentContext.getAssets().open(file);
+
+			SqlParser parser = new SqlParser(is);
+			String[] sql = parser.getSql();
+
+			for (String sqlStmt : sql) {
+				Logger.i("SQL Line", sqlStmt);
+
+				db.execSQL(sqlStmt);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
