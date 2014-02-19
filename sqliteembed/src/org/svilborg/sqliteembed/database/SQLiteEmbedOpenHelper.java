@@ -31,9 +31,15 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
 		String absPath = context.getDatabasePath(name).getAbsolutePath();
 
+		if (path != null) {
+            dbPath = path;
+        } else {
+            dbPath = context.getApplicationInfo().dataDir + "/databases";
+        }
+
 		Logger.i(TAG, "Database ABS PATH - " + absPath);
 
-		this.setDatabasePath(path);
+		this.setDatabasePath(dbPath);
 	}
 
 	public String getDatabasePath() {
