@@ -145,10 +145,4 @@ public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 		super.onOpen(db);
 	}
 	
-	public Cursor showAllTables(){
-        String mySql = " SELECT name FROM sqlite_master " + " WHERE type='table'";
-       // Cursor cursor = db.rawQuery(mySql, null);
-        return db.rawQuery(mySql, null);
-    }
-
 }
