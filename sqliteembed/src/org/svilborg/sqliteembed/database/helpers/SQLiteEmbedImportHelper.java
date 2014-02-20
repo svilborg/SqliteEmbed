@@ -53,11 +53,13 @@ public class SQLiteEmbedImportHelper extends SQLiteEmbedHelper {
 
 			getWritableDatabase().close();
 		}
+		else if (isOnUpdate) {
+			// TODO
+		}
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// suppressed
 		Logger.i(TAG, "ON CREATE");
 
 		isOnCreate = true;

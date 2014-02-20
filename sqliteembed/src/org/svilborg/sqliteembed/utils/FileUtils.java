@@ -72,7 +72,7 @@ public class FileUtils {
 	/**
 	 * List asset files
 	 * 
-	 * @param assetManager
+	 * @param files
 	 * @param path
 	 *            Folder
 	 * @param ext
@@ -80,11 +80,11 @@ public class FileUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String[] list(AssetManager assetManager, String path, String ext) throws IOException {
-		String[] files = assetManager.list(path);
-		List<FileUtils.SqlFile> sqlFiles = new ArrayList<FileUtils.SqlFile>();
+	public static String[] list(String[] files, String path, String ext) throws IOException {
+		//String[] files = assetManager.list(path);
 		Arrays.sort(files);
 
+		List<FileUtils.SqlFile> sqlFiles = new ArrayList<FileUtils.SqlFile>();
 		for (String file : files) {
 			if (file.startsWith(ext)) {
 				int version = Integer.parseInt(Utils.getNumerics(file));
