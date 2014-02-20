@@ -40,6 +40,8 @@ public class SqlParser {
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
 		String[] str = parseSqlFile(in);
+		
+		is.close();
 
 		return str;
 	}

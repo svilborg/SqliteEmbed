@@ -17,7 +17,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * SQLite DB Handler
  * 
- * 
  */
 public class SQLiteEmbedOpenHelper extends SQLiteOpenHelper {
 
