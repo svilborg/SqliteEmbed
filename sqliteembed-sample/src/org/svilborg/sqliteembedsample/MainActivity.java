@@ -3,17 +3,16 @@ package org.svilborg.sqliteembedsample;
 import java.io.IOException;
 
 import org.svilborg.sqliteembed.database.SQLiteEmbedException;
-import org.svilborg.sqliteembed.database.SQLiteEmbedImporter;
-import org.svilborg.sqliteembed.database.helpers.SQLiteEmbedOpenHelper;
+import org.svilborg.sqliteembed.database.helpers.SQLiteEmbedImportHelper;
 import org.svilborg.sqliteembed.utils.Logger;
-import org.svilborg.sqliteembed.utils.Utils;
+import org.svilborg.sqliteembed.utils.Utils; 
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class MainActivity extends Activity { 
+public class MainActivity extends Activity {
 	public static final String DATABASE_PATH = "/data/data/org.svilborg.sqliteembedsample/databases/";
 	public static final String DATABASE_NAME = "teams.db";
 	public static final int DATABASE_VERSION = 1;
@@ -34,13 +33,11 @@ public class MainActivity extends Activity {
 
 	private void testCreateDatabase() throws IOException, SQLiteEmbedException {
 
-		SQLiteEmbedOpenHelper dbHandle = new SQLiteEmbedOpenHelper(this, DATABASE_NAME, DATABASE_PATH, null, DATABASE_VERSION);
+		SQLiteEmbedImportHelper dbHelper = new SQLiteEmbedImportHelper(this, DATABASE_NAME, DATABASE_PATH, null, DATABASE_VERSION);
+		
+		dbHelper.init();
 
-		SQLiteEmbedImporter importer = new SQLiteEmbedImporter(this, dbHandle);
-
-		importer.importDatabase();
-
-		SQLiteDatabase db = dbHandle.getReadableDatabase();
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 		// List databases
 		// ////////////////////////
@@ -48,7 +45,7 @@ public class MainActivity extends Activity {
 		String mySql = " SELECT name FROM sqlite_master " + " WHERE type='table'";
 		Cursor c = db.rawQuery(mySql, null);
 
-		if (c.moveToFirst()) { 
+		if (c.moveToFirst()) {
 			do {
 				Logger.i("MainActivity", "|" + c.getString(0) + "|");
 
@@ -60,5 +57,7 @@ public class MainActivity extends Activity {
 		Cursor cursor = db.rawQuery("SELECT * FROM `teams`", null);
 		Logger.i("MainActivity", "Result: " + cursor.getCount());
 		Logger.i("MainActivity", "Result: " + Utils.getVersionCode(this));
+
+		dbHelper.close();
 	}
 }

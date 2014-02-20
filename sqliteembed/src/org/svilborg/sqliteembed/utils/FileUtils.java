@@ -15,9 +15,8 @@ import android.content.res.AssetManager;
 /**
  * File Utils
  * 
- * 
  */
-public class File {
+public class FileUtils {
 
 	/**
 	 * Copy File
@@ -70,16 +69,27 @@ public class File {
 		outputStream.close();
 	}
 
+	/**
+	 * List asset files
+	 * 
+	 * @param assetManager
+	 * @param path
+	 *            Folder
+	 * @param ext
+	 *            File Extension
+	 * @return
+	 * @throws IOException
+	 */
 	public static String[] list(AssetManager assetManager, String path, String ext) throws IOException {
 		String[] files = assetManager.list(path);
-		List<File.SqlFile> sqlFiles = new ArrayList<File.SqlFile>();
+		List<FileUtils.SqlFile> sqlFiles = new ArrayList<FileUtils.SqlFile>();
 		Arrays.sort(files);
 
 		for (String file : files) {
 			if (file.startsWith(ext)) {
 				int version = Integer.parseInt(Utils.getNumerics(file));
 
-				File.SqlFile x = new File().new SqlFile(file, version, "");
+				FileUtils.SqlFile x = new FileUtils().new SqlFile(file, version, "");
 
 				sqlFiles.add(x);
 			}
@@ -87,6 +97,9 @@ public class File {
 		return files;
 	}
 
+	/**
+	 * Sql File
+	 */
 	class SqlFile {
 		public String name;
 		public int version;
@@ -94,7 +107,9 @@ public class File {
 
 		/**
 		 * @param name
-		 * @param version2
+		 *            File name
+		 * @param version
+		 *            File Version
 		 * @param size
 		 */
 		public SqlFile(String name, int version, String size) {
