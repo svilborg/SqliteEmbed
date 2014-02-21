@@ -3,9 +3,7 @@ package org.svilborg.sqliteembed.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import org.svilborg.sqliteembed.utils.SqlParser;
-
 import junit.framework.TestCase;
 
 public class SqlParserTest extends TestCase {
@@ -52,7 +50,7 @@ public class SqlParserTest extends TestCase {
 		assertEquals("INSERT INTO 'teams' VALUES(6,'Poland', 5)", sql[0]);
 		assertEquals("CREATE TABLE players (\"_id\" INTEGER NOT NULL,\"name\" TEXT,\"goals\" INTEGER NOT NULL DEFAULT (0))", sql[1]);
 	}
-	
+
 	public void testGetSql3() throws FileNotFoundException {
 		FileInputStream fileInputStream = getFileIs("./assets/update_0.3.sql");
 

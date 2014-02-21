@@ -80,27 +80,33 @@ public class FileUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String[] list(String[] files, String path, String ext) throws IOException {
-		//String[] files = assetManager.list(path);
+	public static List<SqlFile> list(String[] files, String path, String ext) throws IOException {
+		// String[] files = assetManager.list(path);
 		Arrays.sort(files);
 
 		List<FileUtils.SqlFile> sqlFiles = new ArrayList<FileUtils.SqlFile>();
 		for (String file : files) {
-			if (file.startsWith(ext)) {
-				int version = Integer.parseInt(Utils.getNumerics(file));
+			if (file.endsWith(ext)) {
+				String versionNumber = Utils.getNumerics(file);
+				int version = 0;
+
+				try {
+					version = Integer.parseInt(versionNumber);
+				} catch (Exception e) {
+				}
 
 				FileUtils.SqlFile x = new FileUtils().new SqlFile(file, version, "");
 
 				sqlFiles.add(x);
 			}
 		}
-		return files;
+		return sqlFiles;
 	}
 
 	/**
 	 * Sql File
 	 */
-	class SqlFile {
+	public class SqlFile {
 		public String name;
 		public int version;
 		public String size;
